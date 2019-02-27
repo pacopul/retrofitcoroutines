@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
-import net.azarquiel.recetasclase.viewmodel.MainViewModel
+import net.azarquiel.retrofitcoroutines.viewmodel.MainViewModel
 import net.azarquiel.retrofitcoroutines.adapter.CustomAdapter
 import net.azarquiel.retrofitcoroutines.model.Bar
 
