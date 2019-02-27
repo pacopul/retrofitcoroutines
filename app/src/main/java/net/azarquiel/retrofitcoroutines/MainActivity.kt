@@ -26,9 +26,9 @@ class MainActivity : AppCompatActivity() {
         fab.setOnClickListener {
             addBar()
         }
-
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        viewModel.getDataBares().observe(this, Observer {
+        viewModel.loadData()
+        viewModel.dataBares.observe(this, Observer {
             //adapter.setBares(it!!) // with nullable
             //it?.let{adapter.setBares(it)} // unwrap nullable it
             it?.let(adapter::setBares)  // to lambda

@@ -2,6 +2,10 @@ package net.azarquiel.retrofitcoroutines.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import android.util.Log
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import net.azarquiel.retrofitcoroutines.api.MainRepository
 import net.azarquiel.retrofitcoroutines.model.Bar
 
@@ -13,8 +17,13 @@ class MainViewModel : ViewModel() {
 
     private val repository: MainRepository = MainRepository()
 
-    fun getDataBares(): MutableLiveData<List<Bar>> {
-        return repository.getDataBares()
+    val dataBares = MutableLiveData<List<Bar>>()
+
+    fun loadData() {
+        GlobalScope.launch(Main) {
+            val result = repository.getDataBares()
+            dataBares.value = result
+        }
     }
 
     fun saveBar(
@@ -22,7 +31,10 @@ class MainViewModel : ViewModel() {
         direccion: String,
         municipio: String,
         provincia: String
-    ): Bar? {
-        return repository.saveBar(nombrebar, direccion, municipio, provincia)
+    ) {
+        GlobalScope.launch(Main) {
+            val result = repository.saveBar(nombrebar, direccion, municipio, provincia)
+            result ?: println("El bar no se ha guardado")
+        }
     }
 }
